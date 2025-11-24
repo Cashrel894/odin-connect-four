@@ -6,7 +6,7 @@ class Board
   def initialize(width = 7, height = 6, grid = nil)
     @width = width
     @height = height
-    @grid = grid || [[nil] * height] * width
+    @grid = grid || Array.new(width) { [nil] * height }
   end
 
   def invalid_column?(col_id)
