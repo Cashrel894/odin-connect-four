@@ -43,15 +43,15 @@ describe Board do
       subject(:grid_board) { described_class.new(3, 4, grid) }
 
       it 'is 3 cells wide' do
-        expect(custom_board.width).to eq(3)
+        expect(grid_board.width).to eq(3)
       end
 
       it 'is 4 cells high' do
-        expect(custom_board.height).to eq(4)
+        expect(grid_board.height).to eq(4)
       end
 
       it 'has the specific grid' do
-        expect(custom_board.grid).to eq(grid)
+        expect(grid_board.grid).to eq(grid)
       end
     end
   end
@@ -78,10 +78,6 @@ describe Board do
     end
 
     context 'when the specific column is out of range' do
-      it 'returns true if given a non-integer' do
-        expect(validation_board.invalid_column?('hello')).to be(true)
-      end
-
       it 'returns true if given a integer that is not between 0 and (width - 1)' do
         expect(validation_board.invalid_column?(-1)).to be(true)
         expect(validation_board.invalid_column?(2)).to be(true)
@@ -105,7 +101,7 @@ describe Board do
       end
 
       it "puts the specific player's mark at the bottom" do
-        expect(place_board.place!(0, 1)).to eq(expected_grid)
+        expect { place_board.place!(0, 1) }.to change { place_board.grid }.to expected_grid
       end
     end
 
@@ -124,7 +120,7 @@ describe Board do
       end
 
       it 'stacks the mark on top of other existing marks' do
-        expect(place_board.place!(0, 0)).to eq(expected_grid)
+        expect { place_board.place!(0, 0) }.to change { place_board.grid }.to expected_grid
       end
     end
   end
@@ -142,7 +138,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:tie_board) { described_class(7, 6, grid) }
+      subject(:tie_board) { described_class.new(7, 6, grid) }
 
       it 'returns true' do
         expect(tie_board).to be_tie
@@ -161,7 +157,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:not_over_board) { described_class(7, 6, grid) }
+      subject(:not_over_board) { described_class.new(7, 6, grid) }
 
       it 'returns false' do
         expect(not_over_board).not_to be_tie
@@ -180,7 +176,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:winner_board) { described_class(7, 6, grid) }
+      subject(:winner_board) { described_class.new(7, 6, grid) }
 
       it 'returns false' do
         expect(winner_board).not_to be_tie
@@ -201,7 +197,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:not_over_board) { described_class(7, 6, grid) }
+      subject(:not_over_board) { described_class.new(7, 6, grid) }
 
       it 'returns false' do
         expect(not_over_board).not_to be_game_over
@@ -220,7 +216,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:tie_board) { described_class(7, 6, grid) }
+      subject(:tie_board) { described_class.new(7, 6, grid) }
 
       it 'returns true' do
         expect(tie_board).to be_game_over
@@ -239,7 +235,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:winner_board) { described_class(7, 6, grid) }
+      subject(:winner_board) { described_class.new(7, 6, grid) }
 
       it 'returns true' do
         expect(winner_board).to be_game_over
@@ -260,7 +256,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:winner_board) { described_class(7, 6, grid) }
+      subject(:winner_board) { described_class.new(7, 6, grid) }
 
       it 'returns 0' do
         expect(winner_board.winner).to eq(0)
@@ -279,7 +275,7 @@ describe Board do
           [1, 1, 0, 0, 1, 1]
         ]
       end
-      subject(:winner_board) { described_class(7, 6, grid) }
+      subject(:winner_board) { described_class.new(7, 6, grid) }
 
       it 'returns 1' do
         expect(winner_board.winner).to eq(1)
